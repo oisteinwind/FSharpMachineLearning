@@ -8,16 +8,17 @@ Example usage:
 *)
 #I "packages/Google.DataTable.Net.Wrapper/lib"
 #I "packages/XPlot.GoogleCharts/lib/net45"
+#I "packages/Newtonsoft.Json/lib/net45"
+#I "packages/FSharp.Data/lib/net40"
 #r "XPlot.GoogleCharts.dll"
 #r "Google.DataTable.Net.Wrapper.dll"
-
-#I "packages/FSharp.Data/lib/net40"
 #r "FSharp.Data.dll"
-
+#r "Newtonsoft.Json.dll"
 
 open XPlot.GoogleCharts
 open FSharp.Data
 open System
+open Newtonsoft
 
 
 
@@ -61,8 +62,8 @@ let myRungeKuttaSeq h =
     Seq.unfold rungeKuttaIterator (0.0,1.0,h)
     |> Seq.map(coordinates)
 
-//let exact = [0. .. 0.1.. 5.0] |> Seq.map(fun x->x,exp x)
-//Chart.Line[exact; (myEulerSeq 0.1); (myRungeKuttaSeq 1.0)] |> Chart.WithLabels["Exact";"Euler";"Runge Kutta"] |> Chart.Show
+let exact = [0. .. 0.1.. 5.0] |> Seq.map(fun x->x,exp x)
+Chart.Line[exact; (myEulerSeq 0.1); (myRungeKuttaSeq 1.0)] |> Chart.WithLabels["Exact";"Euler";"Runge Kutta"] |> Chart.Show
 
 
 let data = WorldBankData.GetDataContext();
